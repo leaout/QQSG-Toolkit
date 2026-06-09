@@ -1,0 +1,17 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.sdf
+*.db
+
+# Build output
+bin/
+obj/
+Debug/
+Release/
+QQSG-Toolkit/Debug/
+
+# Windows
+Thumbs.db
+Desktop.ini
