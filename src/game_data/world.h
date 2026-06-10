@@ -19,7 +19,7 @@ struct CurMap {
 // auto constexpr BaseAddress = 0x??????;  // 需要用CE扫描基址
 struct GameWorld {
     DWORD UnknownField3[0xC / 4];
-    Camera* Camera;
+    Camera* GameCamera;
     DWORD UnknownFileds[(0x14 - 0xC - sizeof(Camera*)) / 4];
     CurMap* CurMap;
 };

@@ -153,7 +153,7 @@ void OverlayRenderer::RenderTextToTexture(const char* text, int& out_w, int& out
         return;
 
     // 转换 ARGB: GDI 是 0x00BBGGRR, D3D 需要 0xAARRGGBB
-    // 将 GDI 像素中非黑色 (0x00000000) 的部分转换为带 Alpha 的颜色
+    // 用像素亮度作为 Alpha，保留字体抗锯齿效果
     BYTE* src = (BYTE*)bits_;
     BYTE* dst = (BYTE*)locked.pBits;
     for (int y = 0; y < out_h; y++) {
@@ -163,20 +163,13 @@ void OverlayRenderer::RenderTextToTexture(const char* text, int& out_w, int& out
             BYTE b = src[si + 0];
             BYTE g = src[si + 1];
             BYTE r = src[si + 2];
-            BYTE a = src[si + 3]; // not used by GDI
 
-            // 如果像素非全黑，设为白色带 Alpha（颜色由顶点着色指定）
-            if (r || g || b) {
-                dst[di + 0] = b;     // B
-                dst[di + 1] = g;     // G
-                dst[di + 2] = r;     // R
-                dst[di + 3] = 255;   // A
-            } else {
-                dst[di + 0] = 0;
-                dst[di + 1] = 0;
-                dst[di + 2] = 0;
-                dst[di + 3] = 0;
-            }
+            // 用亮度值作为 Alpha，保留 GDI 的灰色抗锯齿边缘
+            BYTE brightness = (std::max)({ r, g, b });
+            dst[di + 0] = b;
+            dst[di + 1] = g;
+            dst[di + 2] = r;
+            dst[di + 3] = brightness;
         }
     }
 
@@ -247,8 +240,6 @@ void OverlayRenderer::DrawBox(float x, float y, float w, float h, D3DCOLOR color
 }
 
 void OverlayRenderer::DrawBorderBox(float x, float y, float w, float h, float thickness, D3DCOLOR color) {
+    (void)thickness;  // lines are always 1px wide in D3D9
     DrawBox(x, y, w, h, color);
-    if (thickness > 1.0f) {
-        DrawBox(x - 1, y - 1, w + 2, h + 2, color);
-    }
 }

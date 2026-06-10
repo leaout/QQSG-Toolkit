@@ -320,7 +320,7 @@ bool AutoRunner::RunHole6(int x, int y, int speedX) {
     else if (y == 1580 && x > 3890) { KeyDown(VK_RIGHT); KeyDown(VK_UP); }
     else if (y == 1580 && x >= 3840 && x <= 3890) { KeyDown(VK_RIGHT); KeyDown(VK_UP); }
     else if (y == 1860 && x >= 3850 && x <= 3900) { KeyDown(VK_RIGHT); KeyDown(VK_UP); }
-    else if (y == 1860 && x >= 3900 && x <= 1860) { KeyDown(VK_RIGHT); KeyDown(VK_UP); }
+    else if (y == 1860 && x > 3900 && x <= 3980) { KeyDown(VK_RIGHT); KeyDown(VK_UP); }
     else if (y == 2180 && x > 3600) { KeyDown(VK_LEFT); }
     else if (y == 2180 && x >= 3390 && x <= 3520) { KeyDown(VK_RIGHT); }
     else if (y == 2180 && x <= 3600 && x > 3520) { KeyPress(VK_UP); }
@@ -407,7 +407,7 @@ bool AutoRunner::RunGeneralPos(int x, int y, int speedX) {
     return false;
 }
 
-bool AutoRunner::RunHoleExit(DWORD mapid, DWORD currentstate, DWORD x, DWORD y, bool* pressedKeys) {
+bool AutoRunner::RunHoleExit(DWORD mapid, DWORD currentstate, DWORD x, DWORD y) {
     if (x <= 1956) {
         KeyDown(VK_RIGHT);
     } else if (x >= 1956 && currentstate == 0) {
@@ -465,7 +465,7 @@ bool AutoRunner::ClearType(BOOL intype) {
     return false;
 }
 
-void AutoRunner::Execute(DWORD worldIndex, DWORD, DWORD x, DWORD y, DWORD speed, bool* pressedKeys) {
+void AutoRunner::Execute(DWORD worldIndex, DWORD x, DWORD y, DWORD speed) {
     switch (worldIndex) {
     case 461: // HOLE1
     case 458:
@@ -488,5 +488,5 @@ void AutoRunner::Execute(DWORD worldIndex, DWORD, DWORD x, DWORD y, DWORD speed,
     else if (worldIndex == 460) RunHole4(x, y, speed);
     else if (worldIndex == 459) RunHole5(x, y, speed);
     else if (worldIndex == 456) RunHole6(x, y, speed);
-    else if (worldIndex == 462) RunHoleExit(worldIndex, 0, x, y, pressedKeys);
+    else if (worldIndex == 462) RunHoleExit(worldIndex, 0, x, y);
 }

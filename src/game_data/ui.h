@@ -75,12 +75,12 @@ struct UIControl {
 // 比LUA实现性能更高，且可在非UI线程执行
 inline bool WinIsVisible(UIControl* root, const char* window) {
     auto lstr = std::string(window);
-    auto index = lstr.find_first_of(".");
+    auto index = lstr.find('.');
 
     if (strcmp(root->name, lstr.substr(0, index).c_str()) != 0)
         return false;
 
-    if (index > lstr.size())
+    if (index == std::string::npos)
         return ((root->State >> 7) & 1) != 0;
 
     auto size = root->end - root->begin;

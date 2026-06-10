@@ -94,7 +94,7 @@ namespace hook {
     inline bool FreeHook(hook_t* Hook) {
         if (Hook->isHooked) return false;
         VirtualFree(Hook->APIFunction, 0, MEM_RELEASE);
-        memset(Hook, 0, sizeof(hook_t*));
+        memset(Hook, 0, sizeof(hook_t));
         return true;
     }
 };

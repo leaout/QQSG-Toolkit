@@ -58,29 +58,41 @@ namespace Equipment {
         return *reinterpret_cast<DWORD*>(equipAddr + EQUIPMENTMAX);
     }
 
+    // 获取本地玩家对象指针（解引用全局指针 LOCALPLAYER）
+    inline DWORD_PTR GetLocalPlayerObject() {
+        return *reinterpret_cast<DWORD_PTR*>(LOCALPLAYER);
+    }
+
+    // 获取指定部位装备（自动获取玩家对象）
+    inline DWORD_PTR GetEquipSlot(DWORD slotOffset) {
+        DWORD_PTR lp = GetLocalPlayerObject();
+        if (!lp) return 0;
+        return GetEquipmentSlot(lp, slotOffset);
+    }
+
     // 获取各部位耐久
-    inline DWORD GetHeadCur()  { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, HAT);   return GetCurDurability(e); }
-    inline DWORD GetHeadMax()  { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, HAT);   return GetMaxDurability(e); }
-    inline DWORD GetGlassCur() { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, GLASS); return GetCurDurability(e); }
-    inline DWORD GetGlassMax() { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, GLASS); return GetMaxDurability(e); }
-    inline DWORD GetNeckCur()  { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, NECK);  return GetCurDurability(e); }
-    inline DWORD GetNeckMax()  { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, NECK);  return GetMaxDurability(e); }
-    inline DWORD GetWingCur()  { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, WING);  return GetCurDurability(e); }
-    inline DWORD GetWingMax()  { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, WING);  return GetMaxDurability(e); }
-    inline DWORD GetUpperCur() { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, UPPER); return GetCurDurability(e); }
-    inline DWORD GetUpperMax() { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, UPPER); return GetMaxDurability(e); }
-    inline DWORD GetLowerCur() { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, LOWER); return GetCurDurability(e); }
-    inline DWORD GetLowerMax() { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, LOWER); return GetMaxDurability(e); }
-    inline DWORD GetArmCur()   { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, ARM);   return GetCurDurability(e); }
-    inline DWORD GetArmMax()   { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, ARM);   return GetMaxDurability(e); }
-    inline DWORD GetShoeCur()  { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, SHOE);  return GetCurDurability(e); }
-    inline DWORD GetShoeMax()  { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, SHOE);  return GetMaxDurability(e); }
-    inline DWORD GetWeaponCur() { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, RIGHTWEAPON); return GetCurDurability(e); }
-    inline DWORD GetWeaponMax() { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, RIGHTWEAPON); return GetMaxDurability(e); }
-    inline DWORD GetRingCur()  { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, RING);    return GetCurDurability(e); }
-    inline DWORD GetRingMax()  { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, RING);    return GetMaxDurability(e); }
-    inline DWORD GetFuZhouCur() { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, FUZHOU); return GetCurDurability(e); }
-    inline DWORD GetFuZhouMax() { DWORD_PTR e = GetEquipmentSlot(LOCALPLAYER, FUZHOU); return GetMaxDurability(e); }
+    inline DWORD GetHeadCur()  { DWORD_PTR e = GetEquipSlot(HAT);       return GetCurDurability(e); }
+    inline DWORD GetHeadMax()  { DWORD_PTR e = GetEquipSlot(HAT);       return GetMaxDurability(e); }
+    inline DWORD GetGlassCur() { DWORD_PTR e = GetEquipSlot(GLASS);     return GetCurDurability(e); }
+    inline DWORD GetGlassMax() { DWORD_PTR e = GetEquipSlot(GLASS);     return GetMaxDurability(e); }
+    inline DWORD GetNeckCur()  { DWORD_PTR e = GetEquipSlot(NECK);      return GetCurDurability(e); }
+    inline DWORD GetNeckMax()  { DWORD_PTR e = GetEquipSlot(NECK);      return GetMaxDurability(e); }
+    inline DWORD GetWingCur()  { DWORD_PTR e = GetEquipSlot(WING);      return GetCurDurability(e); }
+    inline DWORD GetWingMax()  { DWORD_PTR e = GetEquipSlot(WING);      return GetMaxDurability(e); }
+    inline DWORD GetUpperCur() { DWORD_PTR e = GetEquipSlot(UPPER);     return GetCurDurability(e); }
+    inline DWORD GetUpperMax() { DWORD_PTR e = GetEquipSlot(UPPER);     return GetMaxDurability(e); }
+    inline DWORD GetLowerCur() { DWORD_PTR e = GetEquipSlot(LOWER);     return GetCurDurability(e); }
+    inline DWORD GetLowerMax() { DWORD_PTR e = GetEquipSlot(LOWER);     return GetMaxDurability(e); }
+    inline DWORD GetArmCur()   { DWORD_PTR e = GetEquipSlot(ARM);       return GetCurDurability(e); }
+    inline DWORD GetArmMax()   { DWORD_PTR e = GetEquipSlot(ARM);       return GetMaxDurability(e); }
+    inline DWORD GetShoeCur()  { DWORD_PTR e = GetEquipSlot(SHOE);      return GetCurDurability(e); }
+    inline DWORD GetShoeMax()  { DWORD_PTR e = GetEquipSlot(SHOE);      return GetMaxDurability(e); }
+    inline DWORD GetWeaponCur() { DWORD_PTR e = GetEquipSlot(RIGHTWEAPON); return GetCurDurability(e); }
+    inline DWORD GetWeaponMax() { DWORD_PTR e = GetEquipSlot(RIGHTWEAPON); return GetMaxDurability(e); }
+    inline DWORD GetRingCur()  { DWORD_PTR e = GetEquipSlot(RING);      return GetCurDurability(e); }
+    inline DWORD GetRingMax()  { DWORD_PTR e = GetEquipSlot(RING);      return GetMaxDurability(e); }
+    inline DWORD GetFuZhouCur() { DWORD_PTR e = GetEquipSlot(FUZHOU);   return GetCurDurability(e); }
+    inline DWORD GetFuZhouMax() { DWORD_PTR e = GetEquipSlot(FUZHOU);   return GetMaxDurability(e); }
 }
 
 // ---------- 世界/坐标工具函数 ----------

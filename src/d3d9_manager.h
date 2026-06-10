@@ -41,8 +41,6 @@ struct D3D9Manager {
 
     LONG_PTR OriginalWndProc = NULL;
     HHOOK LowLevelMouseHook = NULL;
-
-    bool Sleeper = 0;
 };
 
 // 全局单例

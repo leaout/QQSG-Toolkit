@@ -27,14 +27,14 @@ namespace Memory {
         VirtualProtect(reinterpret_cast<void*>(address), sizeof(T), oldProtect, &oldProtect);
     }
 
-    // 读取指针链
+    // 读取指针链（先加偏移再解引用，最后一个偏移不加解引用）
     inline uintptr_t ReadPointerChain(uintptr_t baseAddress, const std::vector<uintptr_t>& offsets) {
         uintptr_t addr = baseAddress;
         for (size_t i = 0; i < offsets.size(); i++) {
             if (!addr) return 0;
-            addr = *reinterpret_cast<uintptr_t*>(addr);
+            addr += offsets[i];
             if (i < offsets.size() - 1) {
-                addr += offsets[i];
+                addr = *reinterpret_cast<uintptr_t*>(addr);
             }
         }
         return addr;

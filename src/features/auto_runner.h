@@ -28,7 +28,7 @@ public:
     static bool RunGeneralPos(int x, int y, int speedX);
 
     // 洞窟出口处理
-    static bool RunHoleExit(DWORD mapid, DWORD currentstate, DWORD x, DWORD y, bool* pressedKeys);
+    static bool RunHoleExit(DWORD mapid, DWORD currentstate, DWORD x, DWORD y);
 
     // 雁鸟渡出口
     static bool RunOutside(DWORD mapid, DWORD currentstate, DWORD x, DWORD y);
@@ -37,5 +37,5 @@ public:
     static bool ClearType(BOOL intype);
 
     // 总入口
-    static void Execute(DWORD worldIndex, DWORD conversationState, DWORD x, DWORD y, DWORD speed, bool* pressedKeys);
+    static void Execute(DWORD worldIndex, DWORD x, DWORD y, DWORD speed);
 };
